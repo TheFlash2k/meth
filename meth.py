@@ -82,8 +82,6 @@ class SNIFF:
 			method  = packet[HTTPRequest].Method.decode()
 			print(f"{Colors.GREEN}[*] {Colors.CYAN}HTTP{Colors.RESET} Request:{Colors.CYAN}{method} {Colors.MAGENTA}{path_to}{Colors.RESET} on {Colors.BLUE}{sent_to}{Colors.RESET} from {Colors.YELLOW}{sent_frm}{Colors.RESET}")
 			self.counter += 1
-			if self.outfile != '':
-				self.write_to_pcap(packet)
 			if method == "POST":
 				try:
 					print(f"{Colors.RED}[^] {Colors.RESET}Data sent with {Colors.CYAN}POST{Colors.RESET} Request: {Colors.RED}{(packet[Raw].load).decode()}{Colors.RESET}")
@@ -98,6 +96,8 @@ class SNIFF:
 		if self.count != 0:
 			if self.counter == self.count:
 				printCount()		
+	      	if self.outfile != '':
+			self.write_to_pcap(packet)
 	def print_Packet(self, packet):
 		protocol = ''
 		flags = {
