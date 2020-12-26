@@ -45,7 +45,7 @@ class SNIFF:
 		if '.pcap' not in self.outfile and outfile != '':
 			self.outfile += '.pcap'
 		self.counter = 0
-		self.interface = None
+		self.interface = iface
 		self.isHTTP = isHTTP
 	def run(self):
 		print(f"{Colors.RED}[*]{Colors.RESET} Sniffing has begun{f' on interface {Colors.CYAN}{self.interface}' if self.interface != None else ''}!\n")
@@ -62,12 +62,15 @@ class SNIFF:
 				print(f"{Colors.BLUE}[+]{Colors.RESET} Interface = {Colors.YELLOW}{self.interface}{Colors.RESET}")
 			print(f"{Colors.BLUE}[+]{Colors.RESET} isHTTP = {f'{Colors.GREEN}Yes.' if self.isHTTP else f'{Colors.RED}No.'}")
 			print(f'{Colors.RESET}\n') # Aesthetics
-		sniff(
-				count = self.count,
-				prn=self.packet_analysis,
-				filter=self.filter,
-				iface=self.interface
-			)
+		try:
+			sniff(
+					count = self.count,
+					prn=self.packet_analysis,
+					filter=self.filter,
+					iface=self.interface
+				)
+		except ValueError:
+			print(f"{Colors.RED}[!]{Colors.RESET} Network interface:{Colors.CYAN} {self.interface}{Colors.RESET} not found on system")
 	def write_to_pcap(self, packet):
 		wrpcap(self.outfile, packet, append=True)
 	def packet_analysis(self, packet):
