@@ -1,4 +1,4 @@
-# METH - HTTP Packet Sniffer for MITM Attacks
+# METH - A Python based Packet Sniffer
 
 - A Python3 scapy based HTTP Packet Sniffer that has the capabilities of sniffing raw packets and writing the output to .pcap for inspection within tools such as Wireshark.
 
