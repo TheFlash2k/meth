@@ -57,7 +57,7 @@ class SNIFF:
 			print(f"{Colors.BLUE}[+]{Colors.RESET} Filter = {Colors.YELLOW}{self.filter}")
 			print(f"{Colors.BLUE}[+]{Colors.RESET} Output To File Enabled = {f'{Colors.GREEN}Yes.' if self.outfile != '' else f'{Colors.RED}No.'}")
 			if self.outfile != '':
-				print(f"{Colors.BLUE}[+]{Colors.RESET} Output File Name = {Colors.YELLOW} outfile")
+				print(f"{Colors.BLUE}[+]{Colors.RESET} Output File Name = {Colors.YELLOW} {self.outfile}")
 			if self.interface != None:
 				print(f"{Colors.BLUE}[+]{Colors.RESET} Interface = {Colors.MAGENTA}{self.interface}{Colors.RESET}")
 			print(f"{Colors.BLUE}[+]{Colors.RESET} isHTTP = {f'{Colors.GREEN}Yes.' if self.isHTTP else f'{Colors.RED}No.'}")
