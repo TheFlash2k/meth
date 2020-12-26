@@ -119,7 +119,7 @@ class SNIFF:
 						protocol = 'ARP'
 					elif packet.haslayer(ICMP):
 						protocol = 'ICMP'
-					print(f"{Colors.GREEN}[*] {Colors.CYAN}{protocol}{Colors.RESET} Packet: Sent From {Colors.MAGENTA}{packet[IP].src}:{packet[TCP].sport}{Colors.RESET} to {Colors.BLUE}{packet[IP].dst}:{packet[TCP].dport}{Colors.RESET}{f'{Colors.YELLOW} {tcp_flags} Packet' if tcp_flags != '' else '' }")
+					print(f"{Colors.GREEN}[*] {Colors.CYAN}{protocol}{Colors.RESET} Packet: Sent From {Colors.MAGENTA}{packet[IP].src}:{packet[TCP].sport}{Colors.RESET} to {Colors.BLUE}{packet[IP].dst}:{packet[TCP].dport}{Colors.RESET}{f'{Colors.YELLOW} {tcp_flags} Packet' if tcp_flags != '' else '' }{Colors.RESET}")
 	def printCount(self):
 		print(f"\n{Colors.GREEN}[+]{Colors.RESET} Successfully captured {Colors.RED}{self.count}{Colors.RESET} packets{f' and stored in file {Colors.GREEN}{self.outfile}.'if self.outfile!=''else'.'}")
 		sys.exit(0)
