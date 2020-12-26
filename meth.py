@@ -95,9 +95,9 @@ class SNIFF:
 			self.print_Packet(packet)
 		if self.count != 0:
 			if self.counter == self.count:
-				printCount()		
-	      	if self.outfile != '':
-			self.write_to_pcap(packet)
+				printCount()
+		if self.outfile != '':
+			self.write_to_pcap(packet)		
 	def print_Packet(self, packet):
 		protocol = ''
 		flags = {
@@ -127,6 +127,15 @@ class SNIFF:
 						print(f"{Colors.GREEN}[*] {Colors.CYAN}{protocol}{Colors.RESET} Packet: Sent From {Colors.MAGENTA}{packet[IP].src}:{packet[TCP].sport}{Colors.RESET} to {Colors.BLUE}{packet[IP].dst}:{packet[TCP].dport}{Colors.RESET}{f'{Colors.YELLOW} {tcp_flags} Packet' if tcp_flags != '' else '' }{Colors.RESET}")
 					except:
 						print(f"{Colors.GREEN}[*] {Colors.CYAN}{protocol}{Colors.RESET} Packet: Sent From {Colors.MAGENTA}{packet[IP].src}{Colors.RESET} to {Colors.BLUE}{packet[IP].dst}{Colors.RESET}")
+					if packet.haslayer(TCP) and packet.haslayer(Raw):
+						dPort = packet[TCP].dport
+						sPort = packet[TCP].sport
+						if dPort == 20 or dPort == 20 or dPort == 21 or sPort == 21:
+							method = "FTP"
+						elif dPort == 22 or sPort == 22:
+							method = "SSH/SFTP"
+						print(f"{Colors.GREEN}[*] {Colors.CYAN}{method}{Colors.RESET} Packet: Sent From {Colors.MAGENTA}{packet[IP].src}{Colors.RESET} to {Colors.BLUE}{packet[IP].dst}{Colors.RESET}")
+
 	def printCount(self):
 		print(f"\n{Colors.GREEN}[+]{Colors.RESET} Successfully captured {Colors.RED}{self.count}{Colors.RESET} packets{f' and stored in file {Colors.GREEN}{self.outfile}.'if self.outfile!=''else'.'}")
 		sys.exit(0)
@@ -178,7 +187,7 @@ def banner():
 | |\\/| |  _|   | | | |_| |
 | |  | | |___  | | |  _  |
 |_|  |_|_____| |_| |_| |_|
-\tBy: {Colors.CYAN}@{Colors.YELLOW}The{Colors.RED}Flash{Colors.WHITE}2k/{Colors.CYAN}@{Colors.RED}hash3lizer{Colors.RESET}
+\tBy: {Colors.CYAN}@{Colors.YELLOW}The{Colors.RED}Flash{Colors.WHITE}2k{Colors.YELLOW}/{Colors.CYAN}@{Colors.RED}hash3lizer{Colors.RESET}
 {Colors.getFore()}HTTP {Colors.getFore()}Packet {Colors.getFore()}Sniffer{Colors.RESET}
         """)
 
