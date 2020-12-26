@@ -71,6 +71,7 @@ class SNIFF:
 				)
 		except ValueError:
 			print(f"{Colors.RED}[!]{Colors.RESET} Network interface:{Colors.CYAN} {self.interface}{Colors.RESET} not found on system")
+			sys.exit(0)
 	def write_to_pcap(self, packet):
 		wrpcap(self.outfile, packet, append=True)
 	def packet_analysis(self, packet):
