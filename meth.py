@@ -59,7 +59,7 @@ class SNIFF:
 			if self.outfile != '':
 				print(f"{Colors.BLUE}[+]{Colors.RESET} Output File Name = {Colors.YELLOW} outfile")
 			if self.interface != None:
-				print(f"{Colors.BLUE}[+]{Colors.RESET} Interface = {Colors.YELLOW}{self.interface}{Colors.RESET}")
+				print(f"{Colors.BLUE}[+]{Colors.RESET} Interface = {Colors.MAGENTA}{self.interface}{Colors.RESET}")
 			print(f"{Colors.BLUE}[+]{Colors.RESET} isHTTP = {f'{Colors.GREEN}Yes.' if self.isHTTP else f'{Colors.RED}No.'}")
 			print(f'{Colors.RESET}\n') # Aesthetics
 		try:
@@ -70,8 +70,8 @@ class SNIFF:
 					iface=self.interface
 				)
 		except ValueError:
-			print(f"{Colors.RED}[!]{Colors.RESET} Network interface:{Colors.CYAN} {self.interface}{Colors.RESET} not found on system")
-			sys.exit(0)
+			print(f"{Colors.RED}[!]{Colors.RESET} Network interface:{Colors.RED} {self.interface}{Colors.RESET} not found on system")
+			sys.exit(-1)
 	def write_to_pcap(self, packet):
 		wrpcap(self.outfile, packet, append=True)
 	def packet_analysis(self, packet):
@@ -203,7 +203,13 @@ def main():
 	interface = modify_argument(parser.interface, None, parser.interface)
 	isHTTP = parser.http_only
 
-	sniff = SNIFF(count=count, passed_filters=bpf, outfile=outfile, iface=interface, isHTTP=isHTTP)
+	sniff = SNIFF(
+		count=count,
+		passed_filters=bpf,
+		outfile=outfile,
+		iface=interface,
+		isHTTP=isHTTP
+		)
 	sniff.run()
 
 if __name__ == '__main__':
