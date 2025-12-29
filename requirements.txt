@@ -1,2 +1,2 @@
 colorama==0.4.4
-scapy==2.4.4
+scapy==2.7.0rc1
